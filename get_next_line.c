@@ -15,6 +15,20 @@ int	ft_contain(const char *s, char c)
 	return (0);
 }
 
+char*	ft_copier_from(char* src ,char **dest)
+{
+	char*	dest;
+	int	i;
+
+	if (!src || !dest)
+		return (NULL);
+	while (src[i] != '\0')
+	{
+		src[i] = dest[]
+
+	}
+}
+
 char*	get_next_line(int fd)
 {
 	static char*	buffer;
@@ -23,12 +37,16 @@ char*	get_next_line(int fd)
 	buffer = (char *)malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-	buffer = read(fd, buffer, BUFFER_SIZE);
-	while (ft_contain(buffer, '\n'))
+	while (read(fd, buffer, BUFFER_SIZE) > 0)
 	{
-		tmp = 
-	}
+		if (ft_contain(buffer, '\n'))
+		{
+			tmp =  (char *)malloc(ft_strlen(buffer) + 1);
+			
 
+			
+		}
+	}
 	
 
 
@@ -36,10 +54,10 @@ char*	get_next_line(int fd)
 
 
 
-int main()
-{
-	int i = 0;
-	int i;
-	read(fd, buffer, BUFFER_SIZE);
-	return (0);
-}
+// int main()
+// {
+// 	int i = 0;
+// 	int i;
+// 	read(fd, buffer, BUFFER_SIZE);
+// 	return (0);
+// }
