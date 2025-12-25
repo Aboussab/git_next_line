@@ -1,14 +1,6 @@
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
 
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
 
 char	*ft_strdup(const char *s)
 {
@@ -28,33 +20,6 @@ char	*ft_strdup(const char *s)
 	return (p);
 }
 
-int	ft_split(char* str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '\n')
-			return (i); 
-		i++;
-	}
-	return (-1);
-}
-char*	ft_copier_from(char** src ,char **dest, char c)
-{
-	int	i;
-
-	if (!src || !dest)
-		return (NULL);
-		i = 0;
-	while (src[i] || *src[i] == c)
-	{
-		*dest[i] = *src[i];
-		i++;
-	}
-	return *dest;
-}
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*s;
@@ -113,42 +78,38 @@ char*	get_next_line(int fd)
 {
 	static char*	buffer;
 	char*			tmp;
-	ssize_t readed;
+	ssize_t r;
 	char *joined;
 
 	buffer = (char *)malloc(BUFFER_SIZE + 1);
 	tmp = (char *)malloc(BUFFER_SIZE + 1);
 	if (!buffer || !tmp)
 		return (NULL);
-	read(fd, buffer, BUFFER_SIZE);
-	while (1)
+	r = read(fd, buffer, BUFFER_SIZE);
+	buffer[r] = '\0';
+	while (r > 0)
 	{
 		if (ft_split(buffer) < 0)
 		{
-			readed = read(fd, tmp, BUFFER_SIZE);
-			if (readed <= 0)
-				break;
-				joined = ft_strjoin(buffer, tmp);
-				free (buffer);
-				buffer = joined;
+			read(fd, tmp, BUFFER_SIZE);
+			tmp[r] = '\0';
+			buffer = ft_strjoin(buffer, tmp);
+			if (!buffer)
+				return (NULL);
 				free(tmp);
 		}
-		else if (ft_split(buffer) > 0)
-		{
+		else {
+			free(tmp);
 			return (ft_switch_var(&buffer));
-		}
-		else
-			break;
 	}
 	return NULL;
 }
 
 int main()
 {
-	int fd;
-	char *line;
-	int i = 3;
-
-	fd = open("file.txt", O_RDWR);
-	printf("%s\n", get_next_line(fd));
+	int fd = open("file.txt", O_RDONLY);
+	char* line;
+	line = get_next_line(fd);
+	printf("%s", line);
+	return 0;
 }
