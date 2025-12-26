@@ -23,84 +23,66 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
+char	*ft_strdup(const char *s)
+{
+	char	*p;
+	size_t	i;
+
+	p = (char *) malloc(ft_strlen(s) + 1);
+	if (!p)
+		return (NULL);
+	i = 0;
+	while (s[i] != '\0')
+	{
+		p[i] = s[i];
+		i++;
+	}
+	p[i] = '\0';
+	return (p);
+}
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*s;
+	size_t	i;
+	size_t	j;
+
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
+	s = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!s)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1[j] != 0)
+		s[i++] = s1[j++];
+	j = 0;
+	while (s2[j] != 0)
+		s[i++] = s2[j++];
+	s[i] = '\0';
+	return (s);
+}
+
 char*	ft_copier_from(char* src ,char *dest, char c)
 {
 	int	i;
 
 	if (!src || !dest)
 		return (NULL);
-		i = 0;
+	i = 0;
 	while (src[i] && src[i] != c)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	if (src[i] == '\n')
 	{
 		dest[i] = src[i];
 		i++;
 	}
 	dest[i] = '\0';
 	return dest;
-}
-char*	ft_switch_var(char** str)
-{
-	char*	tmp;
-	char*	line;
-	int		i;
-
-	i = ft_split(*str);
-	if (i >= 0)
-	{
-		if (i != 0 )
-		{
-			line = (char*)malloc(i + 1);
-			if (!line)
-				return (NULL);
-			line = ft_copier_from(*str, line,'\n');
-			i = (ft_strlen(*str) - i);
-			tmp =  (char*)malloc(i + 1);
-			if (!tmp)
-				return (NULL);
-			i = ft_split(*str) + 1;
-			tmp = ft_copier_from(*str + i , tmp,'\0');
-			free(*str);
-			*str = ft_strdup(tmp);
-		}	
-	}
-	return (line);
-}
-
-
-int main(void)
-{
-	/* Example: copy first line (before '\n') to `line` and remainder to `dest` */
-	char *str = malloc(256);
-	if (!str)
-		return (1);
-
-	int fd = open("file.txt", O_RDONLY);
-	
-	ssize_t r = read(fd, str, 255);
-	
-	str[r] = '\0';
-	close(fd);
-
-	int index = ft_split(str);
-	char *line = NULL;
-	char *dest = NULL;
-
-	line = malloc(index + 1);
-		if (!line) return (1);
-		ft_copier_from(str, line, '\n');
-
-		size_t rest_len = ft_strlen(str) - (size_t)index - 1;
-		dest = malloc(rest_len + 1);
-		if (!dest) return (1);
-	ft_copier_from(str + index + 1, dest, '\0');
-	
-
-	printf("Original string:\n%s\n", str);
-	printf("Line (before newline):\n%s\n", line);
-	printf("Dest (after newline):\n%s\n", dest);
-
-	free(str);
-	free(line);
-	free(dest);
-	return (0);
 }
