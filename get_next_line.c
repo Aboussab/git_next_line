@@ -38,6 +38,7 @@ char*	get_next_line(int fd)
 	char*			tmp2;
 	ssize_t 		r;
 
+	r = 1;
 	if (!buffer)
 	{
 		buffer = (char *)malloc(BUFFER_SIZE + 1);
@@ -65,21 +66,10 @@ char*	get_next_line(int fd)
 			return (free(tmp), ft_switch_var(&buffer));
 	}
 	if (r == 0 && ft_strlen(buffer) > 0)
-		return (free(tmp), buffer = NULL, ft_switch_var(&buffer));
-	
-	return (free(tmp), NULL);
+		return (free(tmp), ft_switch_var(&buffer));
+	if (buffer)
+        free(buffer);
+    buffer = NULL;
+    return (free(tmp), NULL);
 }
 
-	/* Example: copy first line (before '\n') to `line` and remainder to `dest` */
-	int main()
-{
-	int fd = open("file.txt", O_RDONLY);
-	char* line;
-	while((line = get_next_line(fd))!= NULL)
-    {
-        printf("%s", line);
-	    free(line);
-    }
-
-	return 0;
-}

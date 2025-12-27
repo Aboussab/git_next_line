@@ -14,6 +14,7 @@ int	ft_split(char* str)
 	}
 	return (-1);
 }
+
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;
@@ -40,6 +41,7 @@ char	*ft_strdup(const char *s)
 	p[i] = '\0';
 	return (p);
 }
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*s;
