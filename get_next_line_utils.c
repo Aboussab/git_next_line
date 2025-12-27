@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aboussab <aboussab@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/27 09:37:18 by aboussab          #+#    #+#             */
+/*   Updated: 2025/12/27 09:37:18 by aboussab         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-
-int	ft_split(char* str)
+int	ft_split(char *str)
 {
 	int	i;
 
@@ -9,7 +20,7 @@ int	ft_split(char* str)
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\n')
-			return (i); 
+			return (i);
 		i++;
 	}
 	return (-1);
@@ -24,6 +35,7 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
+
 char	*ft_strdup(const char *s)
 {
 	char	*p;
@@ -42,7 +54,7 @@ char	*ft_strdup(const char *s)
 	return (p);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char  **s1, char  **s2)
 {
 	char	*s;
 	size_t	i;
@@ -51,24 +63,25 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!s1 && !s2)
 		return (NULL);
 	if (!s1)
-		return (ft_strdup(s2));
+		return (ft_strdup(*s2));
 	if (!s2)
-		return (ft_strdup(s1));
-	s = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+		return (ft_strdup(*s1));
+	s = (char *)malloc(ft_strlen(*s1) + ft_strlen(*s2) + 1);
 	if (!s)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (s1[j] != 0)
-		s[i++] = s1[j++];
+	while ((*s1)[j] != 0)
+		s[i++] = (*s1)[j++];
 	j = 0;
-	while (s2[j] != 0)
-		s[i++] = s2[j++];
+	while ((*s2)[j] != 0)
+		s[i++] = (*s2)[j++];
 	s[i] = '\0';
-	return (s);
+	free(*s1);
+	*s1 = NULL;
+	return (free(*s2),*s2 = NULL,s);
 }
-
-char*	ft_copier_from(char* src ,char *dest, char c)
+char	*ft_copier_from(char *src, char *dest, char c)
 {
 	int	i;
 
@@ -86,5 +99,5 @@ char*	ft_copier_from(char* src ,char *dest, char c)
 		i++;
 	}
 	dest[i] = '\0';
-	return dest;
+	return (dest);
 }
