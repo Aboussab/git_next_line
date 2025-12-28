@@ -40,9 +40,9 @@ char	*ft_switch_var(char **str)
 	}
 	return (line);
 }
+//hadii hya akheir we7da tesetit fiha norminet ok o 0leak o all good cloniha o pushi 
 
-//yarbi tssde9 
-void	allocate_buffer(char **buffer, int fd, size_t *r)
+void	allocate_buffer(char **buffer, int fd, ssize_t *r)
 {
 	*buffer = (char *)malloc(BUFFER_SIZE + 1);
 	if (!*buffer)
@@ -51,7 +51,7 @@ void	allocate_buffer(char **buffer, int fd, size_t *r)
 		return ;
 	}
 	*r = read(fd, *buffer, BUFFER_SIZE);
-	if (*r != 0)
+	if (*r > 0)
 		(*buffer)[*r] = '\0';
 	else
 	{
@@ -72,8 +72,9 @@ char	*get_next_line(int fd)
 {
 	static char	*buffer;
 	char		*tmp;
-	size_t		r;
+	ssize_t			r;
 
+	r = 1;
 	tmp = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -93,6 +94,5 @@ char	*get_next_line(int fd)
 	}
 	if (r == 0 && ft_strlen(buffer) > 0)
 		return (free(tmp), ft_switch_var(&buffer));
-	free_buffer(&buffer);
-	return (free(tmp), NULL);
+	return (free_buffer(&buffer), free(tmp), NULL);
 }
