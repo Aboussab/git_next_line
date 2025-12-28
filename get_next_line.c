@@ -41,6 +41,7 @@ char	*ft_switch_var(char **str)
 	return (line);
 }
 
+//yarbi tssde9 
 void	allocate_buffer(char **buffer, int fd, size_t *r)
 {
 	*buffer = (char *)malloc(BUFFER_SIZE + 1);
@@ -52,11 +53,6 @@ void	allocate_buffer(char **buffer, int fd, size_t *r)
 	*r = read(fd, *buffer, BUFFER_SIZE);
 	if (*r != 0)
 		(*buffer)[*r] = '\0';
-	else if (r < 0)
-	{
-		*r = 0;
-		printf("ERRORE");
-	}
 	else
 	{
 		free(*buffer);
@@ -65,13 +61,22 @@ void	allocate_buffer(char **buffer, int fd, size_t *r)
 	}
 }
 
+void	free_buffer(char **buffer)
+{
+	if (*buffer)
+		free(*buffer);
+	*buffer = NULL;
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*buffer;
 	char		*tmp;
 	size_t		r;
 
-	r = 1;
+	tmp = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
 	if (!buffer)
 		allocate_buffer(&buffer, fd, &r);
 	while (r > 0)
@@ -88,18 +93,6 @@ char	*get_next_line(int fd)
 	}
 	if (r == 0 && ft_strlen(buffer) > 0)
 		return (free(tmp), ft_switch_var(&buffer));
-	if (buffer)
-		free(buffer);
-	buffer = NULL;
+	free_buffer(&buffer);
 	return (free(tmp), NULL);
-}
-int main(){
-	int fd = open("empty.txt", O_RDONLY);
-	char* line;
-	while((line = get_next_line(fd))!= NULL)
-    {
-        printf("%s", line);
-	    free(line);
-    }
-	return 0;
 }
