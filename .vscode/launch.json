@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/amine/OneDrive/Desktop/get/get_next_line",
-      "program": "c:/Users/amine/OneDrive/Desktop/get/get_next_line/build/Debug/outDebug",
+      "cwd": "c:/Users/amine/OneDrive/Desktop/get/ogit",
+      "program": "c:/Users/amine/OneDrive/Desktop/get/ogit/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
