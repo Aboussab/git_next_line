@@ -6,7 +6,7 @@
 /*   By: aboussab <aboussab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 11:18:22 by aboussab          #+#    #+#             */
-/*   Updated: 2025/12/28 11:18:22 by aboussab         ###   ########.fr       */
+/*   Updated: 2025/12/28 18:11:09 by aboussab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ char	*ft_switch_var(char **str)
 	}
 	return (line);
 }
-//hadii hya akheir we7da tesetit fiha norminet ok o 0leak o all good cloniha o pushi 
 
+//hadii hya akheir we7da tesetit fiha norminet ok o 0leak 
+//o all good cloniha o pushi 
 void	allocate_buffer(char **buffer, int fd, ssize_t *r)
 {
 	*buffer = (char *)malloc(BUFFER_SIZE + 1);
