@@ -77,7 +77,7 @@ char	*get_next_line(int fd)
 
 	r = 1;
 	tmp = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE == INT_MAX)
 		return (NULL);
 	if (!buffer)
 		allocate_buffer(&buffer, fd, &r);

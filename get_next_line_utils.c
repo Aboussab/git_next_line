@@ -102,14 +102,3 @@ char	*ft_copier_from(char *src, char *dest, char c)
 	dest[i] = '\0';
 	return (dest);
 }
-
-// int main(){
-// 	int fd = open("file.txt", O_RDONLY);
-// 	char* line;
-// 	while((line = get_next_line(fd))!= NULL)
-//     {
-//         printf("%s", line);
-// 	    free(line);
-//     }
-// 	return 0;
-// }
