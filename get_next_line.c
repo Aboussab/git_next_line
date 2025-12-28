@@ -73,7 +73,7 @@ char	*get_next_line(int fd)
 {
 	static char	*buffer;
 	char		*tmp;
-	ssize_t			r;
+	ssize_t		r;
 
 	r = 1;
 	tmp = NULL;
